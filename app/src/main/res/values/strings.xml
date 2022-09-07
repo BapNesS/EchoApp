@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Echo</string>
+    <string name="screen_settings">Settings</string>
+    <string name="screen_list">Home</string>
+    <string name="back">Back</string>
+    <string name="mycomment">Status</string>
+    <string name="error_title">Something wrong happens</string>
+    <string name="error_content">Data not retrieved</string>
+    <string name="publish_on">Publier sur :</string>
+    <string name="linkedin">LinkedIn</string>
+    <string name="twitter">Twitter</string>
+    <string name="refresh">Refresh</string>
+    <string name="settings_overline_youtube">Youtube</string>
+    <string name="settings_overline_linkedin">LinkedIn</string>
+    <string name="save">Save</string>
+    <string name="reset">Reset</string>
+    <string name="settings_apikey">API key</string>
+    <string name="settings_youtube_channelid">Channel ID</string>
+    <string name="settings_linkedin_accessid">Access ID</string>
+    <string name="settings_linkedin_linkedinid">LinkedIn ID</string>
+</resources>
