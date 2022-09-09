@@ -1,4 +1,4 @@
-package com.baptistecarlier.echo.ui.viewmodel.settings
+package com.baptistecarlier.echo.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +8,7 @@ import com.baptistecarlier.echo.domain.interactor.youtube.GetYoutubeAccessUc
 import com.baptistecarlier.echo.domain.interactor.youtube.StoreYoutubeAccessUc
 import com.baptistecarlier.echo.domain.model.LinkedInAccess
 import com.baptistecarlier.echo.domain.model.YoutubeAccess
-import com.baptistecarlier.echo.ui.state.settings.SettingsScreenState
+import com.baptistecarlier.echo.ui.state.SettingsScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

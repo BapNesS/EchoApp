@@ -12,4 +12,12 @@ In order to LinkedIn sharing to work :
  * LinkedIn app Access ID
  * LinkedIn user ID
 
-![./docs/Docs-2022-09-07.png](./docs/Docs-2022-09-07.png)
+## Stats
+
+It also give few public stats about the youtube channel and the tags
+
+## Screenshots
+
+![./docs/Docs-2022-09-09-light.png](./docs/Docs-2022-09-09-light.png)
+
+![./docs/Docs-2022-09-09-dark.png](./docs/Docs-2022-09-09-dark.png)

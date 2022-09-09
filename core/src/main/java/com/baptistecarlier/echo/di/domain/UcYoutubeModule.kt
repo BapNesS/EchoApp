@@ -1,10 +1,9 @@
 package com.baptistecarlier.echo.di.domain
 
+import com.baptistecarlier.echo.data.Cache
 import com.baptistecarlier.echo.data.storage.EchoStorage
 import com.baptistecarlier.echo.data.youtube.YoutubeRepository
-import com.baptistecarlier.echo.domain.interactor.youtube.GetVideosUc
-import com.baptistecarlier.echo.domain.interactor.youtube.GetYoutubeAccessUc
-import com.baptistecarlier.echo.domain.interactor.youtube.StoreYoutubeAccessUc
+import com.baptistecarlier.echo.domain.interactor.youtube.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +24,20 @@ object UcYoutubeModule {
     fun provideGetVideosUc(
         coroutineDispatcher: CoroutineDispatcher,
         youtubeRepository: YoutubeRepository,
+        cache: Cache,
         getYoutubeAccessUc: GetYoutubeAccessUc
-    ) = GetVideosUc(coroutineDispatcher, youtubeRepository, getYoutubeAccessUc)
+    ) = GetVideosUc(coroutineDispatcher, youtubeRepository, cache, getYoutubeAccessUc)
+
+    @Provides
+    fun provideGetVideoUc(
+        coroutineDispatcher: CoroutineDispatcher,
+        cache: Cache
+    ) = GetVideoUc(coroutineDispatcher, cache)
+
+    @Provides
+    fun provideGetChannelInfoUc(
+        coroutineDispatcher: CoroutineDispatcher,
+        youtubeRepository: YoutubeRepository,
+        getYoutubeAccessUc: GetYoutubeAccessUc
+    ) = GetChannelInfoUc(coroutineDispatcher, youtubeRepository, getYoutubeAccessUc)
 }

@@ -5,6 +5,7 @@ import android.text.Html
 import android.text.Html.FROM_HTML_MODE_LEGACY
 
 class YoutubeVideo private constructor(
+    val id: String,
     val title: String,
     val date: String,
     val url: String,
@@ -13,12 +14,13 @@ class YoutubeVideo private constructor(
 ) {
     companion object {
         operator fun invoke(
+            id: String,
             title: String,
             date: String,
             url: String,
             thumbUrl: String,
             tags: List<String> = emptyList(),
-        ) = YoutubeVideo(decode(title), date, decode(url), decode(thumbUrl), tags.map { decode(it) })
+        ) = YoutubeVideo(id, decode(title), date, decode(url), decode(thumbUrl), tags.map { decode(it) })
 
         private fun decode(htmlString: String): String {
             val decoded = if (Build.VERSION.SDK_INT >= 24) {

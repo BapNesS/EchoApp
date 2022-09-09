@@ -1,5 +1,6 @@
 package com.baptistecarlier.echo.ui.component.settings
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -15,7 +16,7 @@ import com.baptistecarlier.echo.R
 import com.baptistecarlier.echo.domain.model.LinkedInAccess
 import com.baptistecarlier.echo.domain.model.YoutubeAccess
 import com.baptistecarlier.echo.ui.component.common.LoadingView
-import com.baptistecarlier.echo.ui.state.settings.SettingsScreenState
+import com.baptistecarlier.echo.ui.state.SettingsScreenState
 import com.baptistecarlier.echo.ui.theme.EchoTheme
 
 @Composable
@@ -77,7 +78,22 @@ fun SettingsScreen(
     }
 }
 
-@Preview(name = "Preview", group = "SettingsScreenPreview")
+@Preview(name = "Loading", group = "SettingsScreenPreview", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(name = "Loading", group = "SettingsScreenPreview", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun SettingsScreenPreview_Loading() {
+    EchoTheme {
+        SettingsScreen(
+            SettingsScreenState(),
+            {},
+            { _, _ -> },
+            { _, _ -> }
+        )
+    }
+}
+
+@Preview(name = "Preview", group = "SettingsScreenPreview", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(name = "Preview", group = "SettingsScreenPreview", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun SettingsScreenPreview() {
     EchoTheme {
@@ -87,19 +103,6 @@ fun SettingsScreenPreview() {
                 YoutubeAccess("a", "b"),
                 LinkedInAccess("c", "d")
             ),
-            {},
-            { _, _ -> },
-            { _, _ -> }
-        )
-    }
-}
-
-@Preview(name = "Loading", group = "SettingsScreenPreview")
-@Composable
-fun SettingsScreenPreview_Loading() {
-    EchoTheme {
-        SettingsScreen(
-            SettingsScreenState(),
             {},
             { _, _ -> },
             { _, _ -> }

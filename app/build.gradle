@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdk project.sdk_target
+    compileSdk sdk_target
 
     defaultConfig {
         minSdk project.sdk_min
@@ -21,6 +21,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            versionNameSuffix '-debug'
+            applicationIdSuffix '.debug'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -53,6 +57,7 @@ dependencies {
     // Compose
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.activity:activity-compose:1.5.1'
     implementation project(path: ':core')
@@ -60,12 +65,8 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
-    // Ktor client
-    implementation "io.ktor:ktor-client-core:2.0.1"
-    implementation "io.ktor:ktor-client-cio:2.0.1"
-    implementation "io.ktor:ktor-client-content-negotiation:2.0.1"
-    implementation "io.ktor:ktor-serialization-kotlinx-json:2.0.1"
-    implementation "io.ktor:ktor-client-logging:2.0.1"
+    // Coil
+    implementation "io.coil-kt:coil-compose:2.2.0"
 
     // Hilt
     implementation "com.google.dagger:hilt-android:2.42"

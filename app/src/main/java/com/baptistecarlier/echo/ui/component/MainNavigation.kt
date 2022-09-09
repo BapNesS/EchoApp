@@ -1,5 +1,6 @@
 package com.baptistecarlier.echo.ui.component
 
+import android.content.share
 import android.content.shareOnTwitter
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -10,36 +11,70 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.baptistecarlier.echo.domain.model.YoutubeVideo
+import com.baptistecarlier.echo.ui.component.hasgtag.HashtagListScreen
+import com.baptistecarlier.echo.ui.component.home.HomeScreen
 import com.baptistecarlier.echo.ui.component.list.ListScreen
 import com.baptistecarlier.echo.ui.component.settings.SettingsScreen
+import com.baptistecarlier.echo.ui.component.videodetail.PostOn
+import com.baptistecarlier.echo.ui.component.videodetail.VideoDetailScreen
 import com.baptistecarlier.echo.ui.navigation.Screen
-import com.baptistecarlier.echo.ui.viewmodel.list.ListScreenVM
-import com.baptistecarlier.echo.ui.viewmodel.settings.SettingsScreenVM
+import com.baptistecarlier.echo.ui.navigation.navigate
+import com.baptistecarlier.echo.ui.viewmodel.*
 
 @Composable
 fun MainNavigation() {
 
     val navController = rememberNavController()
-    val startDestination = Screen.List
+    val startDestination = Screen.Home
 
+    // Navigation Units
     val onBack: () -> Unit = { navController.popBackStack() }
     val onNavigate: (Screen) -> Unit = { navController.navigate(it.route) }
+    val onGoVideoDetail: (YoutubeVideo) -> Unit = {
+        navController.navigate(Screen.VideoDetail, it.id)
+    }
 
     NavHost(navController = navController, startDestination = startDestination.route) {
+        composable(Screen.Home.route) {
+            val viewModel: HomeScreenVM = hiltViewModel()
+            val state = viewModel.state.collectAsState().value
+
+            val onRefresh = { viewModel.refreshList() }
+
+            HomeScreen(state, onNavigate, onRefresh, { onGoVideoDetail(it) })
+        }
+
         composable(Screen.List.route) {
             val viewModel: ListScreenVM = hiltViewModel()
             val state = viewModel.state.collectAsState().value
 
-            val context = LocalContext.current
-
-            val onRefresh = { viewModel.refreshList() }
-            val onPostLinkedIn: (previewComment: String, youtubeVideo: YoutubeVideo) -> Unit =
-                { p, y -> viewModel.post(p, y) }
-            val onPostTwitter: (previewComment: String) -> Unit =
-                { p -> context.shareOnTwitter(p) }
-
-            ListScreen(state, onNavigate, onRefresh, onPostLinkedIn, onPostTwitter)
+            ListScreen(state, onBack, { onGoVideoDetail(it) }) { viewModel.refreshList() }
         }
+
+        composable(Screen.HashtagList.route) {
+            val viewModel: HashtagListScreenVM = hiltViewModel()
+            val state = viewModel.state.collectAsState().value
+
+            HashtagListScreen(state, onBack, { viewModel.refreshList() }) { viewModel.sortBy(it) }
+        }
+
+        composable(Screen.VideoDetail.route) {
+            val viewModel: VideoDetailScreenVM = hiltViewModel()
+            val state = viewModel.state.collectAsState().value
+
+            val context = LocalContext.current
+            val onPost: (postOn: PostOn, previewComment: String, youtubeVideo: YoutubeVideo) -> Unit =
+                { postOn, previewComment, youtubeVideo ->
+                    when (postOn) {
+                        PostOn.LinkedIn -> viewModel.post(previewComment, youtubeVideo)
+                        PostOn.Twitter -> context.shareOnTwitter(previewComment)
+                        PostOn.JustText -> context.share(previewComment)
+                    }
+                }
+
+            VideoDetailScreen(state, onBack, onPost)
+        }
+
         composable(Screen.Settings.route) {
             val viewModel: SettingsScreenVM = hiltViewModel()
             val state = viewModel.state.collectAsState().value
@@ -54,7 +89,6 @@ fun MainNavigation() {
                     onBack()
                 }
             }
-
             SettingsScreen(state, onBack, updateYoutubeAccess, updateLinkedInAccess)
         }
     }

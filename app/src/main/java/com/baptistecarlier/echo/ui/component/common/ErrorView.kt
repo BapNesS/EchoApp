@@ -1,5 +1,6 @@
 package com.baptistecarlier.echo.ui.component.common
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -59,13 +60,15 @@ fun ErrorView(onRefresh: () -> Unit) {
     }
 }
 
-@Preview(name = "Not refreshable", group = "ErrorView")
+@Preview(name = "Not refreshable", group = "ErrorView", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(name = "Not refreshable", group = "ErrorView", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ErrorViewPreview() {
     EchoTheme { ErrorView() }
 }
 
-@Preview(name = "Refreshable", group = "ErrorView")
+@Preview(name = "Refreshable", group = "ErrorView", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(name = "Refreshable", group = "ErrorView", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ErrorViewPreview_Refreshable() {
     EchoTheme { ErrorView {} }

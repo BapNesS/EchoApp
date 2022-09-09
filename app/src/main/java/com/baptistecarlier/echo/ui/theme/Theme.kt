@@ -14,17 +14,17 @@ private val DarkColorPalette = darkColors(
 )
 
 private val LightColorPalette = lightColors(
-    primary = Color(0xFFffd54f),
-    primaryVariant = Color(0xffc8a415),
+    primary = Mustard,
+    primaryVariant = LemonCurry,
     onPrimary = Color(0xff000000),
-    secondary = Color(0xffd81b60),
-    secondaryVariant = Color(0xffa00037),
+    secondary = DogwoodRose,
+    secondaryVariant = PinkRaspberry,
     onSecondary = Color(0xffffffff),
     background = Color(0xffffffff),
     onBackground = Color(0xff000000),
     surface = Color(0xFFF8F8F8),
     onSurface = Color(0xff000000),
-    error = Color(0xff5e35b1),
+    error = Plump,
     onError = Color(0xffffffff)
 )
 
