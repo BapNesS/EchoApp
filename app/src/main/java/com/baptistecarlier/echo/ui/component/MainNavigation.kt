@@ -39,7 +39,7 @@ fun MainNavigation() {
             val viewModel: HomeScreenVM = hiltViewModel()
             val state = viewModel.state.collectAsState().value
 
-            val onRefresh = { viewModel.refreshList() }
+            val onRefresh = { viewModel.refresh() }
 
             HomeScreen(state, onNavigate, onRefresh, { onGoVideoDetail(it) })
         }

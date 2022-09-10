@@ -23,6 +23,8 @@ import com.baptistecarlier.echo.ui.model.LinkedInViewItem
 import com.baptistecarlier.echo.ui.navigation.Screen
 import com.baptistecarlier.echo.ui.state.HomeState
 import com.baptistecarlier.echo.ui.theme.EchoTheme
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
 fun HomeScreen(
@@ -43,64 +45,70 @@ fun HomeScreen(
             } else if (state.isError) {
                 ErrorView(onRefresh)
             } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                SwipeRefresh(
+                    state = rememberSwipeRefreshState(state.isRefreshing),
+                    onRefresh = onRefresh,
                 ) {
-                    item {
-                        val context = LocalContext.current
-                        Stats(state.youtubeChannelInfos) { context.openYoutubeStudio() }
-                    }
-                    item {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                modifier = Modifier.weight(1f),
-                                style = MaterialTheme.typography.h5,
-                                fontWeight = FontWeight.SemiBold,
-                                maxLines = 1,
-                                text = stringResource(id = R.string.mylastvideos)
-                            )
-                            TextButton(
-                                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.secondary),
-                                onClick = { onNavigate(Screen.List) }
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        item {
+                            val context = LocalContext.current
+                            Stats(state.youtubeChannelInfos) { context.openYoutubeStudio() }
+                        }
+                        item {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text(text = stringResource(R.string.all_videos))
+                                Text(
+                                    modifier = Modifier.weight(1f),
+                                    style = MaterialTheme.typography.h5,
+                                    fontWeight = FontWeight.SemiBold,
+                                    maxLines = 1,
+                                    text = stringResource(id = R.string.mylastvideos)
+                                )
+                                TextButton(
+                                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.secondary),
+                                    onClick = { onNavigate(Screen.List) }
+                                ) {
+                                    Text(text = stringResource(R.string.all_videos))
+                                }
                             }
                         }
-                    }
-                    items(state.list.take(3)) {
-                        VideoItem(8.dp, it.second) { onGoVideoDetail(it.second) }
-                    }
-                    item {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                modifier = Modifier.weight(1f),
-                                style = MaterialTheme.typography.h5,
-                                fontWeight = FontWeight.SemiBold,
-                                maxLines = 1,
-                                text = stringResource(id = R.string.mytags)
-                            )
-                            TextButton(
-                                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.secondary),
-                                onClick = { onNavigate(Screen.HashtagList) }
+                        items(state.list.take(3)) {
+                            VideoItem(8.dp, it.second) { onGoVideoDetail(it.second) }
+                        }
+                        item {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text(text = stringResource(R.string.all_videos))
+                                Text(
+                                    modifier = Modifier.weight(1f),
+                                    style = MaterialTheme.typography.h5,
+                                    fontWeight = FontWeight.SemiBold,
+                                    maxLines = 1,
+                                    text = stringResource(id = R.string.mytags)
+                                )
+                                TextButton(
+                                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.secondary),
+                                    onClick = { onNavigate(Screen.HashtagList) }
+                                ) {
+                                    Text(text = stringResource(R.string.all_videos))
+                                }
                             }
                         }
-                    }
-                    item {
-                        val tags = state.list.flatMap { it.second.tags }.toSet().toList().sorted()
-                        Text(
-                            style = MaterialTheme.typography.body2,
-                            text = tags.joinToString(", ")
-                        )
+                        item {
+                            val tags =
+                                state.list.flatMap { it.second.tags }.toSet().toList().sorted()
+                            Text(
+                                style = MaterialTheme.typography.body2,
+                                text = tags.joinToString(", ")
+                            )
+                        }
                     }
                 }
             }
