@@ -12,9 +12,13 @@ import androidx.compose.ui.unit.dp
 import com.baptistecarlier.echo.ui.model.HashtagRatioItem
 
 @Composable
-fun HashtagItemView(verticalPadding: Dp = 0.dp, hashtagRatioItem: HashtagRatioItem, total: Int) {
+fun HashtagItemView(
+    modifier: Modifier = Modifier,
+    verticalPadding: Dp = 0.dp,
+    hashtagRatioItem: HashtagRatioItem
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(vertical = verticalPadding),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -32,7 +36,7 @@ fun HashtagItemView(verticalPadding: Dp = 0.dp, hashtagRatioItem: HashtagRatioIt
                 val fl = "%.1f".format(hashtagRatioItem.percentage * 100)
                 Text(
                     style = MaterialTheme.typography.body2,
-                    text = "$fl % (${hashtagRatioItem.count}/$total)"
+                    text = "$fl % (${hashtagRatioItem.count})"
                 )
             }
         }

@@ -19,6 +19,7 @@ import com.baptistecarlier.echo.domain.model.YoutubeVideo
 import com.baptistecarlier.echo.ui.component.common.ErrorView
 import com.baptistecarlier.echo.ui.component.common.LoadingView
 import com.baptistecarlier.echo.ui.model.LinkedInViewItem
+import com.baptistecarlier.echo.ui.model.PostOn
 import com.baptistecarlier.echo.ui.state.VideoDetailState
 import com.baptistecarlier.echo.ui.theme.EchoTheme
 

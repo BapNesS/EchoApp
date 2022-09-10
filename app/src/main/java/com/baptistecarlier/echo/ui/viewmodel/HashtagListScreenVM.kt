@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.baptistecarlier.echo.domain.interactor.youtube.GetVideosUc
 import com.baptistecarlier.echo.domain.model.YoutubeVideo
-import com.baptistecarlier.echo.ui.component.hasgtag.HashtagItemSort
+import com.baptistecarlier.echo.ui.model.HashtagItemSort
 import com.baptistecarlier.echo.ui.model.HashtagRatioItem
 import com.baptistecarlier.echo.ui.state.HashtagListScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel

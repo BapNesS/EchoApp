@@ -15,8 +15,8 @@ import com.baptistecarlier.echo.ui.component.hasgtag.HashtagListScreen
 import com.baptistecarlier.echo.ui.component.home.HomeScreen
 import com.baptistecarlier.echo.ui.component.list.ListScreen
 import com.baptistecarlier.echo.ui.component.settings.SettingsScreen
-import com.baptistecarlier.echo.ui.component.videodetail.PostOn
 import com.baptistecarlier.echo.ui.component.videodetail.VideoDetailScreen
+import com.baptistecarlier.echo.ui.model.PostOn
 import com.baptistecarlier.echo.ui.navigation.Screen
 import com.baptistecarlier.echo.ui.navigation.navigate
 import com.baptistecarlier.echo.ui.viewmodel.*

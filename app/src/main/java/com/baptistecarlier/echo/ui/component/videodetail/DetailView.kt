@@ -1,9 +1,14 @@
 package com.baptistecarlier.echo.ui.component.videodetail
 
-import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -12,14 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.baptistecarlier.echo.R
 import com.baptistecarlier.echo.domain.model.YoutubeVideo
 import com.baptistecarlier.echo.ui.component.common.layout.FlowRow
+import com.baptistecarlier.echo.ui.model.PostOn
 import com.baptistecarlier.echo.ui.theme.EchoTheme
 import java.util.*
-
-enum class PostOn(@StringRes val label: Int) {
-    LinkedIn(R.string.linkedin),
-    Twitter(R.string.twitter),
-    JustText(R.string.share)
-}
 
 @Composable
 fun DetailView(
