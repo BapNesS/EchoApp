@@ -1,4 +1,4 @@
-package com.baptistecarlier.echo.ui.viewmodel
+package com.baptistecarlier.echo.ui.component.hasgtag
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,7 +6,6 @@ import com.baptistecarlier.echo.domain.interactor.youtube.GetVideosUc
 import com.baptistecarlier.echo.domain.model.YoutubeVideo
 import com.baptistecarlier.echo.ui.model.HashtagItemSort
 import com.baptistecarlier.echo.ui.model.HashtagRatioItem
-import com.baptistecarlier.echo.ui.state.HashtagListScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,12 +13,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HashtagListScreenVM @Inject constructor(
+class HashtagListVM @Inject constructor(
     private val getVideosUc: GetVideosUc
 ) : ViewModel() {
 
-    private var _state = MutableStateFlow(HashtagListScreenState())
-    val state: StateFlow<HashtagListScreenState> = _state
+    private var _state = MutableStateFlow(HashtagListUiState())
+    val state: StateFlow<HashtagListUiState> = _state
 
     private var _sort: HashtagItemSort = HashtagItemSort.Name
 
@@ -28,15 +27,15 @@ class HashtagListScreenVM @Inject constructor(
     }
 
     fun refreshList() {
-        _state.value = HashtagListScreenState(isLoading = true, list = _state.value.list)
+        _state.value = HashtagListUiState(isLoading = true, list = _state.value.list)
         viewModelScope.launch {
             val list = getVideosUc()
             if (list.isEmpty()) {
-                _state.value = HashtagListScreenState(isError = true)
+                _state.value = HashtagListUiState(isError = true)
             } else {
                 val hashtagRatioItemList = toHashtagList(list)
                 val hasgtagList = sortBy(hashtagRatioItemList, _sort)
-                _state.value = HashtagListScreenState(list = hasgtagList, nbVideo = list.size)
+                _state.value = HashtagListUiState(list = hasgtagList, nbVideo = list.size)
             }
         }
     }
@@ -76,7 +75,7 @@ class HashtagListScreenVM @Inject constructor(
         _state.value.let {
             val size = it.nbVideo
             val list = sortBy(it.list, sort)
-            _state.value = HashtagListScreenState(list = list, nbVideo = size)
+            _state.value = HashtagListUiState(list = list, nbVideo = size)
         }
     }
 }

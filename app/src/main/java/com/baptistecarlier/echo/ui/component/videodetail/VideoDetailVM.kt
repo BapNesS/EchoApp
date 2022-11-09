@@ -1,4 +1,4 @@
-package com.baptistecarlier.echo.ui.viewmodel
+package com.baptistecarlier.echo.ui.component.videodetail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,6 @@ import com.baptistecarlier.echo.domain.interactor.linkedin.PostOnLinkedInUc
 import com.baptistecarlier.echo.domain.interactor.youtube.GetVideoUc
 import com.baptistecarlier.echo.domain.model.YoutubeVideo
 import com.baptistecarlier.echo.ui.model.LinkedInViewItem
-import com.baptistecarlier.echo.ui.state.VideoDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,15 +15,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class VideoDetailScreenVM @Inject constructor(
+class VideoDetailVM @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getVideoUc: GetVideoUc,
     private val formatContentUc: FormatContentUc,
     private val postOnLinkedInUc: PostOnLinkedInUc
 ) : ViewModel() {
 
-    private var _state = MutableStateFlow(VideoDetailState(isLoading = true))
-    val state: StateFlow<VideoDetailState> = _state
+    private var _state = MutableStateFlow(VideoDetailUiState(isLoading = true))
+    val state: StateFlow<VideoDetailUiState> = _state
 
     init {
         savedStateHandle.get<String>("id")?.let { pId ->
@@ -32,17 +31,17 @@ class VideoDetailScreenVM @Inject constructor(
                 val cacheVideo = getVideoUc(pId)
 
                 if (cacheVideo == null) {
-                    _state.value = VideoDetailState(isError = true)
+                    _state.value = VideoDetailUiState(isError = true)
                     return@launch
                 }
 
                 val formatted = LinkedInViewItem(formatContentUc(cacheVideo), cacheVideo)
-                _state.value = VideoDetailState(linkedInViewItem = formatted)
+                _state.value = VideoDetailUiState(linkedInViewItem = formatted)
             }
         }
     }
 
-    fun post(linkedInPostContent: String, youtubeVideo: YoutubeVideo) {
+    fun postOnLinkedIn(linkedInPostContent: String, youtubeVideo: YoutubeVideo) {
         viewModelScope.launch {
             postOnLinkedInUc(
                 linkedInPostContent = linkedInPostContent,

@@ -1,8 +1,8 @@
-package com.baptistecarlier.echo.ui.state
+package com.baptistecarlier.echo.ui.component.hasgtag
 
 import com.baptistecarlier.echo.ui.model.HashtagRatioItem
 
-data class HashtagListScreenState(
+data class HashtagListUiState(
     val isLoading: Boolean = false,
     val isError: Boolean = false,
     val list: List<HashtagRatioItem> = emptyList(),

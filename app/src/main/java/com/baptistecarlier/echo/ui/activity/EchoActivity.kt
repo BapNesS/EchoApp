@@ -3,7 +3,7 @@ package com.baptistecarlier.echo.ui.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.baptistecarlier.echo.ui.component.MainNavigation
+import com.baptistecarlier.echo.ui.component.EchoNavigation
 import com.baptistecarlier.echo.ui.theme.EchoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,7 +14,7 @@ class EchoActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             EchoTheme {
-                MainNavigation()
+                EchoNavigation()
             }
         }
     }

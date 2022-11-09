@@ -5,7 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 
-internal val Context.echoDataStore: DataStore<Preferences> by preferencesDataStore(name = "echo_prefs")
+private const val DATASTORE_FILENAME = "echo_prefs.preferences_pb"
+internal val Context.echoDataStore: DataStore<Preferences> by preferencesDataStore(name = DATASTORE_FILENAME)
 
 class EchoStorage(youtubeStorage: YoutubeStorage, linkedInStorage: LinkedInStorage) :
     YoutubeStorage by youtubeStorage,

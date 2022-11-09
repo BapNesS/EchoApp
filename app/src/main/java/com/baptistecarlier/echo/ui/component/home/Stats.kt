@@ -59,7 +59,7 @@ fun Stats(youtubeStats: YoutubeChannelInfos?, onClick: () -> Unit) {
                         style = MaterialTheme.typography.h6,
                         fontWeight = FontWeight.Bold,
                         color = contentColor,
-                        text = youtubeStats?.subscribers.toString()
+                        text = (youtubeStats?.subscribers ?: "-").toString()
                     )
                     Text(
                         style = MaterialTheme.typography.body1,
@@ -72,7 +72,7 @@ fun Stats(youtubeStats: YoutubeChannelInfos?, onClick: () -> Unit) {
                         style = MaterialTheme.typography.h6,
                         fontWeight = FontWeight.Bold,
                         color = contentColor,
-                        text = youtubeStats?.videos.toString()
+                        text = (youtubeStats?.videos ?: "-").toString()
                     )
                     Text(
                         style = MaterialTheme.typography.body1,
@@ -105,5 +105,14 @@ fun StatsPreview() {
                 "https://i.picsum.photos/id/408/200/200.jpg?hmac=VJjKULX_XeyV5C9mbWyv6XTsG5EV-ZBsqbiQIi6xTeg"
             )
         ) {}
+    }
+}
+
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_NO)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun StatsPreview_null() {
+    EchoTheme {
+        Stats(null) {}
     }
 }
